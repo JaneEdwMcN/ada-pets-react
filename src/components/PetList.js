@@ -2,10 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import PetCard from './PetCard';
 
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const getCards = (props) => {
-  return props.pets.map( (pet) =>{
+  return props.pets.map( (pet, index) =>{
     return (
       <PetCard
       id={pet.id}
@@ -14,8 +15,10 @@ const getCards = (props) => {
       about={pet.about}
       location= {pet.location}
       onSelectPetCallback={props.onSelectPetCallback}
+      onRemovePetCallback={props.onRemovePetCallback}
       key={pet.id}
-       />
+      index={index}
+      />
     )
   } );
 }

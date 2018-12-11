@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PetList from './components/PetList';
-import PetCard from './components/PetCard'
 import PetDetails from './components/PetDetails';
 import SearchBar from './components/SearchBar';
 import NewPetForm from './components/NewPetForm';
@@ -27,7 +26,31 @@ class App extends Component {
     this.setState({
       currentPet: pet
     });
-    // console.log(this.state.currentPet);
+  }
+
+  onRemovePet = (petId, petIndex) => {
+    const pets = this.state.petList
+    let currentPet = this.state.currentPet
+    if (currentPet) {
+      if (currentPet.id === petId) {
+        currentPet = undefined;
+      }
+    }
+    pets.splice(petIndex, 1);
+
+    this.setState({
+      petList: pets,
+      currentPet: currentPet
+    });
+  }
+  addNewPet = (newPet) => {
+    const last = this.state.petList.length - 1
+    let  petList = this.state.petList
+    newPet.id = this.state.petList[last].id + 1
+    petList.push(newPet)
+    this.setState({
+      petList: petList
+    })
   }
 
   render() {
@@ -49,10 +72,14 @@ class App extends Component {
       <PetList
       pets={this.state.petList}
       onSelectPetCallback={this.onSelectPet}
+      onRemovePetCallback={this.onRemovePet}
       />
       </section>
       <section className="new-pet-form-wrapper">
       { /* Wave 3:  Where NewPetForm should appear */ }
+      <NewPetForm
+      addPetCallback={this.addNewPet}
+      />
       </section>
       </main>
     );

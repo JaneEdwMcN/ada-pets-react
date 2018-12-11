@@ -28,7 +28,8 @@ const PetCard = (props) =>  {
     <button
     type="button"
     className="btn btn-danger pet-card--close-btn"
-    aria-label="Close"
+    aria-label="Remove"
+    onClick={() => {props.onRemovePetCallback(props.id, props.index)}}
     >
     Close
     </button>
@@ -45,6 +46,7 @@ const PetCard = (props) =>  {
 
 PetCard.propTypes = {
   id: PropTypes.number.isRequired,
+  index: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   species: PropTypes.string.isRequired,
   about: PropTypes.string,
